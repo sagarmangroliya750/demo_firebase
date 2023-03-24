@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "439515245469",
+    "project_id": "demofire-fb317",
+    "storage_bucket": "demofire-fb317.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439515245469:android:243dc552e937d9e7501d74",
+        "android_client_info": {
+          "package_name": "com.example.demo_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439515245469-ccsib5fguu6f8vb8uktknef77ivaid0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS6xSbGYKlsUJcmOy1kxcYpxrHfWy3T6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439515245469-ccsib5fguu6f8vb8uktknef77ivaid0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
