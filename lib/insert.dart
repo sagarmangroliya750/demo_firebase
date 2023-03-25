@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, camel_case_types, avoid_print, must_be_immutable
 
 import 'package:demo_firebase/viewdata.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -23,10 +24,22 @@ class _insertState extends State<insert> {
   @override
   void initState() {
     super.initState();
+    msgLoad();
     if (widget.data != null) {
       t1.text = widget.data!['name'];
       t2.text = widget.data!['phone'];
     }
+  }
+  msgLoad()
+  {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
   }
 
   @override
