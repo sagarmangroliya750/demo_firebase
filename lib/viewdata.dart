@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors
+// ignore_for_file: camel_case_types, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -26,39 +26,41 @@ class _viewdataState extends State<viewdata> {
             return Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return Center(child: CircularProgressIndicator());
           }
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               print(document.id);
               Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
               print(data);
-              return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['phone']),
-                trailing: Column(
-                  children: [
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          CollectionReference users = FirebaseFirestore.instance.collection('users');
-                          users.doc(document.id).delete();
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.delete),
+              return Card(
+                child: ListTile(
+                  title: Text(data['name']),
+                  subtitle: Text(data['phone']),
+                  trailing: Column(
+                    children: [
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            CollectionReference users = FirebaseFirestore.instance.collection('users');
+                            users.doc(document.id).delete();
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.delete,color:Colors.red.shade300),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return insert(data: data,id:document.id);
-                          },));
-                        },
-                        icon: Icon(Icons.edit),
-                      ),
-                    )
-                  ],
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return insert(data: data,id:document.id);
+                            },));
+                          },
+                          icon: Icon(Icons.edit,color:Colors.blueGrey.shade400,),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             }).toList(),
