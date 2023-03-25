@@ -1,14 +1,15 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, camel_case_types, avoid_print, must_be_immutable
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, camel_case_types, avoid_print, must_be_immutable, invalid_return_type_for_catch_error
 
 import 'package:demo_firebase/viewdata.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class insert extends StatefulWidget {
+
   Map<String, dynamic>? data;
   String? id;
-
   insert({this.data, this.id});
 
   @override
@@ -16,6 +17,7 @@ class insert extends StatefulWidget {
 }
 
 class _insertState extends State<insert> {
+
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
 
@@ -57,8 +59,7 @@ class _insertState extends State<insert> {
               controller: t1,
               decoration: InputDecoration(
                   hintText: "Enter Name",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                   suffixIcon: IconButton(
                       onPressed: () {
                         t1.text = "";
@@ -72,8 +73,7 @@ class _insertState extends State<insert> {
                 controller: t2,
                 decoration: InputDecoration(
                     hintText: "Enter Contact",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                     suffixIcon: IconButton(
                         onPressed: () {
                           t2.text = "";
@@ -90,22 +90,36 @@ class _insertState extends State<insert> {
                 String contact = t2.text;
 
                 if (widget.data == null) {
-                  users
-                      .add({
+                  users.add({
                         'name': name, // John Doe
                         'phone': contact, // Stokes and Sons
                       })
-                      .then((value) => print("User Added"))
+                      .then((value) =>
+                      Fluttertoast.showToast(
+                      msg: "Data Insert Successfully !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  ))
                       .catchError((error) => print("Failed to add user: $error"));
                 } else {
-                  users.doc(widget.id)
-                      .update({
+                  users.doc(widget.id).update({
                         'name': name,
                         'phone': contact,
                       })
-                      .then((value) => print("User updated"))
-                      .catchError(
-                          (error) => print("Failed to add user: $error"));
+                      .then((value) =>  Fluttertoast.showToast(
+                      msg: "Data Updated Successfully !",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  ))
+                      .catchError((error) => print("Failed to add user: $error"));
                 }
               },
               child: Text("Insert Data")),
